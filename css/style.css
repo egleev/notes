@@ -1,0 +1,13 @@
+.alert {
+    border: 1px solid white;
+    border-radius: 0;
+}
+button, input {
+    overflow: visible;
+    background: #17a2b8;
+    border: none;
+}
+.jumbotron {
+    background: #fff;
+    padding: 3rem 2rem;
+}

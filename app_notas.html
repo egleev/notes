@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <title>App Notas | Eglee Vargas</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+    integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="css/style.css">
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+
+<body>
+  <div class="container-fluid" id="appNotas">
+    <div class="row">
+      <div class="col-12 px-0">
+        <nav class="navbar navbar-dark bg-dark">
+          <div class="container">
+            <a class="navbar-brand" href="#">
+              <img src="img/logo_notas.png" width="30" height="30" class="d-inline-block align-top" alt="">
+              AppNotas
+            </a>
+          </div>
+        </nav>
+      </div>
+    </div>
+    <div class="container">
+      <div class="row">
+        <div class="col-12 jumbotron display-4"> Registra rápidamente lo que estás pensando...</div>
+        <div class="col-12" v-show="!editingNote.id">
+          <div class="form-group">
+            <div class="d-block p-2 mb-4 bg-info text-white">
+              <label for="note">
+                Captura tus ideas, notas, listas y recordatorios!!
+              </label> </div>
+            <textarea placeholder="..." ref="textarea" v-model="newNote.note" class="form-control" id="note"
+              rows="3"></textarea>
+          </div>
+          <div class="form-group float-right">
+            <button @click="saveNote()" class="btn btn-info"> <i class="fa fa-save"></i></button>
+          </div>
+        </div>
+        <div class="col-12" v-show="editingNote.id">
+          <div class="form-group">
+            <div class="d-block p-2 mb-4 bg-info text-white">
+              <label>Editar Nota:</label>
+            </div>
+            <textarea placeholder="Your note goes here..." v-model="editingNote.note" class="form-control"
+              rows="3"></textarea>
+          </div>
+          <div class="form-group float-right">
+            <button @click="saveEditingNote()" class="btn btn-info"> <i class="fa fa-save"></i></button>
+            <button @click="cancelEdit()" class="btn btn-success"> <i class="fa fa-close"></i></button>
+          </div>
+        </div>
+        <div class="col-12">
+          <div class="form-group lead">
+            <label for="color">Cambiar color:</label>
+            <input id="color" type="color" v-model="color" @change="onColorChanged()">
+          </div>
+        </div>
+        <div v-for="note in notes" class="col-4 alert note" :style="{'background-color':  color}">
+          <h3>{{note.note}}</h3>
+          <h6>{{note.time | toLocaleDateString}}</h6>
+          <button @click="editNote(note)" class="btn btn-success"> <i class="fa fa-edit"></i></button>
+          <button @click="deleteNote(note)" class="btn btn-danger"> <i class="fa fa-trash"></i></button>
+        </div>
+
+      </div>
+    </div>
+  </div>
+  <script src="js/script.js"></script>
+</body>
+
+</html>
